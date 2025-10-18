@@ -1,0 +1,34 @@
+version: "3.9"
+
+services:
+  app:
+    build: .
+    container_name: citibike_app
+    user: "1000:1000" 
+    ports:
+      - "8888:8888"
+    volumes:
+      - ./:/app
+      - ./data:/app/data
+      - ./mlruns:/app/mlruns
+    environment:
+      - MLFLOW_TRACKING_URI=http://host.docker.internal:5050
+      - MLFLOW_EXPERIMENT_NAME=citibike_membership
+    depends_on:
+      - mlflow
+    command: bash -lc "sleep infinity" 
+
+  mlflow:
+    image: ghcr.io/mlflow/mlflow:v2.16.0
+    container_name: mlflow_server
+    ports:
+      - "5050:5000"  
+    volumes:
+      - ./mlruns:/mlflow/mlruns
+      - ./mlflow-backend:/mlflow/backend
+    command: >
+      mlflow server
+      --host 0.0.0.0
+      --port 5000
+      --backend-store-uri sqlite:////mlflow/backend/mlflow.db
+      --default-artifact-root /mlflow/mlruns
