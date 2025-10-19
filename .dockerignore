@@ -1,0 +1,82 @@
+# Git関連
+.git
+.gitignore
+.gitattributes
+
+# Python
+__pycache__
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info
+dist/
+build/
+
+# Jupyter
+.ipynb_checkpoints
+*.ipynb_checkpoints
+
+# 環境変数・機密情報
+.env
+.env.*
+!.env.example
+
+# テスト・カバレッジ
+.pytest_cache
+.coverage
+htmlcov/
+.tox/
+*.cover
+
+# IDE設定
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS固有
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# MLflow・実験データ
+mlruns/
+mlflow-backend/
+mlartifacts/
+
+# データファイル（サイズが大きい）
+data/
+*.csv
+*.parquet
+*.pkl
+*.joblib
+*.h5
+
+# ドキュメント・開発用ファイル
+README.md
+docs/
+notebooks/
+*.md
+LICENSE
+
+# Docker関連
+Dockerfile*
+docker-compose*.yml
+.dockerignore
+
+# CI/CD
+.github/
+.gitlab-ci.yml
+.travis.yml
+
+# ログ
+*.log
+logs/
+
+# 一時ファイル
+tmp/
+temp/
+*.tmp
+*.bak

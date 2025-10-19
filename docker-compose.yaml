@@ -4,16 +4,16 @@ services:
   app:
     build: .
     container_name: citibike_app
-    user: "1000:1000" 
+    user: "${UID:-1000}:${GID:-1000}"
     ports:
-      - "8888:8888"
+      - "${JUPYTER_PORT:-8888}:8888"
     volumes:
       - ./:/app
       - ./data:/app/data
       - ./mlruns:/app/mlruns
     environment:
-      - MLFLOW_TRACKING_URI=http://host.docker.internal:5050
-      - MLFLOW_EXPERIMENT_NAME=citibike_membership
+      - MLFLOW_TRACKING_URI=${MLFLOW_TRACKING_URI}
+      - MLFLOW_EXPERIMENT_NAME=${MLFLOW_EXPERIMENT_NAME}
     depends_on:
       - mlflow
     command: bash -lc "sleep infinity" 
@@ -22,7 +22,7 @@ services:
     image: ghcr.io/mlflow/mlflow:v2.16.0
     container_name: mlflow_server
     ports:
-      - "5050:5000"  
+      - "${MLFLOW_PORT:-5050}:5000" 
     volumes:
       - ./mlruns:/mlflow/mlruns
       - ./mlflow-backend:/mlflow/backend

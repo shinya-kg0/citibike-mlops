@@ -1,0 +1,68 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Jupyter Notebook
+.ipynb_checkpoints
+*.ipynb_checkpoints/
+
+# 環境変数（機密情報）
+.env
+.env.local
+.env.*.local
+
+# MLflow（実験データ・モデル）
+mlruns/
+mlflow-backend/
+mlartifacts/
+
+# データファイル
+data/
+*.csv
+*.parquet
+*.pkl
+*.joblib
+
+# モデルファイル
+models/
+*.h5
+*.pkl
+*.joblib
+*.onnx
+
+# IDE設定
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Docker
+*.log
+
+# その他
+*.bak
+*.tmp
+.cache/
