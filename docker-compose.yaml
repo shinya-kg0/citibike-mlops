@@ -12,6 +12,7 @@ services:
     environment:
       - MLFLOW_TRACKING_URI=${MLFLOW_TRACKING_URI}
       - MLFLOW_EXPERIMENT_NAME=${MLFLOW_EXPERIMENT_NAME}
+      - MLFLOW_ARTIFACT_URI=mlflow-artifacts:/ 
     depends_on:
       - mlflow
     command: bash -lc "sleep infinity" 
@@ -19,7 +20,7 @@ services:
       - citibike-network
 
   mlflow:
-    image: ghcr.io/mlflow/mlflow:v2.16.0
+    image: ghcr.io/mlflow/mlflow:v3.3.0
     container_name: mlflow_server
     ports:
       - "${MLFLOW_PORT:-5050}:5000"

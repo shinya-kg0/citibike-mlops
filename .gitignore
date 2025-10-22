@@ -26,6 +26,7 @@ MANIFEST
 # Jupyter Notebook
 .ipynb_checkpoints
 *.ipynb_checkpoints/
+notebooks/**/*.json
 
 # 環境変数（機密情報）
 .env
@@ -36,6 +37,7 @@ MANIFEST
 mlruns/
 mlflow-backend/
 mlartifacts/
+mlflow/
 
 # データファイル
 data/
