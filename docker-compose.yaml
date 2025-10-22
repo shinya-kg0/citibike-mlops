@@ -15,18 +15,28 @@ services:
     depends_on:
       - mlflow
     command: bash -lc "sleep infinity" 
+    networks:
+      - citibike-network
 
   mlflow:
     image: ghcr.io/mlflow/mlflow:v2.16.0
     container_name: mlflow_server
     ports:
-      - "${MLFLOW_PORT:-5050}:5000" 
+      - "${MLFLOW_PORT:-5050}:5000"
     volumes:
-      - ./mlruns:/mlflow/mlruns
-      - ./mlflow-backend:/mlflow/backend
+      - ./mlruns:/app/mlruns
+      - ./mlflow-backend:/app/backend
     command: >
+      bash -c "apt-get update && apt-get install -y curl &&
+      chown -R ${UID:-1000}:${GID:-1000} /app/mlruns /app/backend &&
       mlflow server
+      --backend-store-uri sqlite:////app/backend/mlflow.db
+      --default-artifact-root /app/mlruns
       --host 0.0.0.0
-      --port 5000
-      --backend-store-uri sqlite:////mlflow/backend/mlflow.db
-      --default-artifact-root /mlflow/mlruns
+      --port 5000"
+    networks:
+      - citibike-network
+
+networks:
+  citibike-network:
+    driver: bridge
