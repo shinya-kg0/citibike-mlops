@@ -86,6 +86,17 @@ def select_features(df: pd.DataFrame) -> pd.DataFrame:
     return df[features + ["is_member"]]
 
 
+def convert_to_float(df: pd.DataFrame) -> pd.DataFrame:
+    """
+    MLflowの警告を避けるため、整数型の特徴量をfloat64に変換する。
+    ターゲット変数 'is_member' は変換しない。
+    """
+    for col in df.columns:
+        if pd.api.types.is_integer_dtype(df[col]) and col != "is_member":
+            df[col] = df[col].astype("float64")
+    return df
+
+
 def preprocess_pipeline(df_org: pd.DataFrame) -> pd.DataFrame:
     """
     CitiBikeデータの前処理を一括で実行する。
@@ -104,5 +115,6 @@ def preprocess_pipeline(df_org: pd.DataFrame) -> pd.DataFrame:
     df = add_time_features(df)
     df = add_aggregate_features(df)
     df = add_target(df)
-    df_final = select_features(df)
+    df = select_features(df)
+    df_final = convert_to_float(df)
     return df_final
