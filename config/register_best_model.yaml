@@ -1,0 +1,3 @@
+experiment_name: "citibike_membership"
+model_name: "citibike_membership_model"
+metric: "test_f1_score"
