@@ -1,21 +1,7 @@
 import mlflow
 from mlflow.tracking import MlflowClient
 from pathlib import Path
-import yaml
-
-
-def load_config(config_path: str = "config/register_best_model.yaml") -> dict:
-    """
-    YAML設定ファイルを読み込んで辞書として返す。
-    """
-    project_root = Path(__file__).resolve().parents[2]  # ← src/ の2つ上がルート
-    config_file = project_root / config_path
-
-    if not config_file.exists():
-        raise FileNotFoundError(f"Config file not found: {config_file}")
-    
-    with open(config_file, "r") as f:
-        return yaml.safe_load(f)
+from src.utils.io import load_config
 
 
 def get_best_run(experiment_name: str, metric: str = "test_f1_score"):

@@ -1,6 +1,8 @@
 from pathlib import Path
 import pandas as pd
 import re
+import yaml
+
 
 DATA_DIR = "data"
 RAW_DIR = "raw"
@@ -64,3 +66,17 @@ def load_month_data(year: int, month: int) -> pd.DataFrame:
     csv_path = csv_files[0]
     print(f"Loading: {csv_files}")
     return pd.read_csv(csv_path)
+
+
+def load_config(config_path: str = "config/register_best_model.yaml") -> dict:
+    """
+    YAML設定ファイルを読み込んで辞書として返す。
+    """
+    project_root = Path(__file__).resolve().parents[2]  # ← src/ の2つ上がルート
+    config_file = project_root / config_path
+
+    if not config_file.exists():
+        raise FileNotFoundError(f"Config file not found: {config_file}")
+    
+    with open(config_file, "r") as f:
+        return yaml.safe_load(f)

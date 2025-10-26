@@ -1,7 +1,7 @@
 from src.utils.preprocess import preprocess_pipeline
 from src.utils.io import load_month_data
 from src.train.trainer import get_model, train_model
-from src.train.evaluator import evaluate_model
+from src.train.evaluator import evaluate_model_train_test
 from src.train.mlflow_logger import log_experiment_to_mlflow
 from sklearn.model_selection import train_test_split
 
@@ -46,7 +46,7 @@ def run_experiment(data_info, model_name, params, experiment_name, random_state=
 
     model = get_model(model_name, params)
     model = train_model(model, X_train, y_train)
-    metrics = evaluate_model(model, X_train, X_test, y_train, y_test)
+    metrics = evaluate_model_train_test(model, X_train, X_test, y_train, y_test)
     log_experiment_to_mlflow(model, df, dataset_params, metrics, params, dataset_info, X_train, experiment_name, model_name)
 
     return metrics
